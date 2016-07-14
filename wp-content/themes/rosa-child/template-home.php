@@ -6,6 +6,8 @@
  * 'pages' on your WordPress site will use a different template.
  */
 
+ /* Template Name: Home Page Template */
+
 get_header();
 
 global $post, $wpgrade_private_post, $page_section_idx, $header_height;
@@ -23,8 +25,7 @@ if ( post_password_required() && ! $wpgrade_private_post['allowed'] ) {
 
 	while ( have_posts() ) : the_post();
 
-
-		get_template_part( 'template-parts/header', 'page' );
+		get_template_part( 'template-parts/header', 'page-home' );
 
 		$classes = "article--page  article--main" ;
 
