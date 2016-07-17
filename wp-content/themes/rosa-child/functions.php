@@ -24,4 +24,17 @@ function rosa_child_enqueue_styles() {
 	);
 }
 
+$args = array(
+	'name'          => sprintf( __( 'Reservations Page Sidebar' ), $i ),
+	'id'            => "sidebar-reservations",
+	'description'   => '',
+	'class'         => '',
+	'before_widget' => '<li id="%1$s" class="widget %2$s">',
+	'after_widget'  => "</li>\n",
+	'before_title'  => '<h2 class="widgettitle">',
+	'after_title'   => "</h2>\n",
+);
+
+register_sidebar( $args );
+
 add_action( 'wp_enqueue_scripts', 'rosa_child_enqueue_styles' );
