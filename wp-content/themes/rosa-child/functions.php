@@ -35,6 +35,11 @@ $args = array(
 	'after_title'   => "</h2>\n",
 );
 
+function mcs_favicon() {
+	echo '<link rel="Shortcut Icon" type="image/x-icon" href="'.get_bloginfo('wpurl').'/favicon.ico" />';
+}
+add_action('wp_head', 'mcs_favicon');
+
 register_sidebar( $args );
 
 add_action( 'wp_enqueue_style', 'rosa-child-style' );
