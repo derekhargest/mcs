@@ -253,7 +253,7 @@ if ( $pin_type == 'single' ) {
 					<div class="flexbox">
 						<div class="flexbox__item">
 							<hgroup class="article__headline">
-							  <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.png" alt="">
+							  <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.png" alt="" class="header-logo">
 							</hgroup>
 						</div>
 					</div>

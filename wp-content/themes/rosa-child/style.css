@@ -37,3 +37,7 @@ specifically the 'Template: rosa' line. */
   line-height: 2.3em;
   font-weight: 700;
 }
+
+.header-logo{
+  opacity: .75;
+}
