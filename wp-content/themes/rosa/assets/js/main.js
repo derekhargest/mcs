@@ -182,7 +182,10 @@ function royalSliderInit($container) {
 
 	// Find and initialize each slider
 	$container.find('.js-pixslider').each(function () {
-		sliderInit($(this));
+		var $slider = $(this);
+		$slider.imagesLoaded(function() {
+			sliderInit($slider)
+		});
 	});
 
 }
@@ -288,7 +291,7 @@ function sliderInit($slider) {
         var classes = '';
 
         if(is_headerSlider) classes = 'slider-arrows-header';
-        if(hoverArrows && !Modernizr.touch) classes += ' arrows--hover ';
+        if(hoverArrows && !Modernizr.touchevents) classes += ' arrows--hover ';
 
         var $gallery_control = $(
             '<div class="' + classes + '">' +
@@ -314,7 +317,7 @@ function sliderInit($slider) {
         });
     }
 
-    if(hoverArrows && !Modernizr.touch){
+    if(hoverArrows && !Modernizr.touchevents){
         hoverArrow($('.slider-arrows-header .rsArrow'));
 
     }
@@ -373,7 +376,7 @@ function hoverArrow($arrow){
         var $arrowIcn = $arrow.find('.rsArrowIcn');
 
         $loop = setInterval(function(){
-            pixGS.TweenMax.to($arrowIcn, 0, {x: $mouseX, y: $mouseY, z: 0.01});
+            TweenMax.to($arrowIcn, 0, {x: $mouseX, y: $mouseY, z: 0.01});
         }, 10);
 
 
@@ -790,7 +793,7 @@ var Parallax = (function() {
         $covers.imagesLoaded(function() {
             initialized = true;
             update();
-            pixGS.TweenMax.to($covers, .3, {'opacity': 1});
+            TweenMax.to($covers, .3, {'opacity': 1});
         });
     }
 
@@ -800,7 +803,7 @@ var Parallax = (function() {
             return;
         }
 
-        pixGS.TweenMax.to($covers, 0, {
+        TweenMax.to($covers, 0, {
             y: -latestKnownScrollY
         });
 
@@ -818,7 +821,7 @@ var Parallax = (function() {
                 var progress = (latestKnownScrollY - parallax.start) / (parallax.end - parallax.start),
                     moveY = (progress - 0.5) * parallax.distance;
 
-                pixGS.TweenMax.to(parallax.target, 0, {
+                TweenMax.to(parallax.target, 0, {
                     y: moveY
                 });
             }
@@ -864,7 +867,7 @@ var Parallax = (function() {
             newWidth    = parseInt(imageWidth * scale),
             newHeight   = scale * imageHeight;
 
-        pixGS.TweenMax.to($image, 0, {
+        TweenMax.to($image, 0, {
             width: newWidth,
             left: (windowWidth - newWidth) / 2,
             top: (heroHeight - newHeight) / 2
@@ -922,7 +925,7 @@ var Parallax = (function() {
             gmapMultiplePinsInit($cover);
         });
 
-        pixGS.TweenMax.to($('.article__parallax'), .3, {'opacity': 1});
+        TweenMax.to($('.article__parallax'), .3, {'opacity': 1});
 
         return;
     }
@@ -953,7 +956,7 @@ var DownArrow = {
 
         this.start      = 0;
         this.end        = this.start + 300;
-        this.timeline   = new pixGS.TimelineMax({ paused: true });
+        this.timeline   = new TimelineMax({ paused: true });
         this.$next      = this.$arrow.closest('.article--page');
 
         if (!empty(this.$next)) {
@@ -963,11 +966,11 @@ var DownArrow = {
 
 
         if (this.$arrow.hasClass('down-arrow--bubble')) {
-            this.timeline.to(this.$arrow, .2, {y: 10, opacity: 0, ease: pixGS.Linear.easeNone, overwrite: "none"});
-            this.timeline.to('.blurp--top', .3, {scaleY: 0, ease: pixGS.Linear.easeNone, overwrite: "none"});
+            this.timeline.to(this.$arrow, .2, {y: 10, opacity: 0, ease: Linear.easeNone, overwrite: "none"});
+            this.timeline.to('.blurp--top', .3, {scaleY: 0, ease: Linear.easeNone, overwrite: "none"});
             this.bubble = true;
         } else {
-            this.timeline.to(this.$arrow, 1, {y: 100, opacity: 0, ease: pixGS.Linear.easeNone, overwrite: "none"});
+            this.timeline.to(this.$arrow, 1, {y: 100, opacity: 0, ease: Linear.easeNone, overwrite: "none"});
         }
 
         this.$arrow.on('click', function (e) {
@@ -992,7 +995,7 @@ var DownArrow = {
             return;
         }
 
-        if (Modernizr.touch && is_OSX) {
+        if (Modernizr.touchevents && is_OSX) {
             this.timeline.progress(0);
             return;
         }
@@ -1023,7 +1026,7 @@ var ScrollToTop = (function() {
         offsetTop = $button.offset().top;
         $button.data('offsetTop', offsetTop);
 
-        this.timeline   = new pixGS.TimelineMax({ paused: true });
+        this.timeline   = new TimelineMax({ paused: true });
 
         this.timeline.fromTo('.blurp--bottom', .6, {
             y:          40,
@@ -1031,7 +1034,7 @@ var ScrollToTop = (function() {
         }, {
             y:          0,
             scale:      1,
-            ease:       pixGS.Power3.easeOut,
+            ease:       Power3.easeOut,
             force3D:    true
 
         });
@@ -1043,7 +1046,7 @@ var ScrollToTop = (function() {
             y: 0,
             scale: 1,
             opacity: 1,
-            ease: pixGS.Back.easeOut
+            ease: Back.easeOut
         }, '-=0.1');
 
         this.timeline.fromTo($('.btn__arrow--bottom'),.4, {
@@ -1053,7 +1056,7 @@ var ScrollToTop = (function() {
             y: 0,
             scale: 1,
             opacity: 1,
-            ease: pixGS.Back.easeOut
+            ease: Back.easeOut
         }, '-=0.25');
 
         $button.on('click', function (e) {
@@ -1075,7 +1078,7 @@ var ScrollToTop = (function() {
             return;
         }
 
-        if (Modernizr.touch && is_OSX) {
+        if (Modernizr.touchevents && is_OSX) {
             this.timeline.progress(1);
             return;
         }
@@ -1119,7 +1122,7 @@ var CoverAnimation = {
 
             var $header         = $(header),
                 $headline       = $header.find('.article__headline'),
-                timeline        = new pixGS.TimelineMax({ paused: true }),
+                timeline        = new TimelineMax({ paused: true }),
                 $title          = $headline.find('.headline__primary'),
                 $subtitle       = $headline.find('.headline__secondary'),
                 $description    = $headline.find('.headline__description'),
@@ -1138,33 +1141,33 @@ var CoverAnimation = {
 
             // ------ A
 
-            timeline.fromTo($title, 0.72, {'letter-spacing': '1em', 'margin-right': '-0.9em'}, {'letter-spacing': '0.2em', 'margin-right': '-0.1em', ease: pixGS.Expo.easeOut});
-            timeline.fromTo($title, 0.89, {opacity: 0}, {opacity: 1, ease: pixGS.Expo.easeOut}, '-=0.72');
-            timeline.fromTo($title, 1, {'y': 30}, {'y': 0, ease: pixGS.Expo.easeOut}, '-=0.89');
-            timeline.fromTo($subtitle, 0.65, {opacity: 0}, {opacity: 1, ease: pixGS.Quint.easeOut}, '-=0.65');
-            timeline.fromTo($subtitle, 0.9, {y: 30}, {y: 0, ease: pixGS.Quint.easeOut}, '-=0.65');
-            timeline.fromTo($star, 0.15, {opacity: 0}, {opacity: 1, ease: pixGS.Quint.easeOut}, '-=0.6');
-            timeline.fromTo($star, 0.55, {rotation: -270}, {rotation: 0, ease: pixGS.Back.easeOut}, '-=0.5');
-            timeline.fromTo($lines, 0.6, {width: 0}, {width: '42%', opacity: 1, ease: pixGS.Quint.easeOut}, '-=0.55');
-            timeline.fromTo($hr, 0.6, {width: 0}, {width: '100%', opacity: 1, ease: pixGS.Quint.easeOut}, '-=0.6');
-            timeline.fromTo($arrows, 0.2, {opacity: 0}, {opacity: 1, ease: pixGS.Quint.easeOut}, '-=0.27');
-            timeline.fromTo($description, 0.5, {opacity: 0}, {opacity: 1, ease: pixGS.Quint.easeOut}, '-=0.28');
+            timeline.fromTo($title, 0.72, {'letter-spacing': '1em', 'margin-right': '-0.9em'}, {'letter-spacing': '0.2em', 'margin-right': '-0.1em', ease: Expo.easeOut});
+            timeline.fromTo($title, 0.89, {opacity: 0}, {opacity: 1, ease: Expo.easeOut}, '-=0.72');
+            timeline.fromTo($title, 1, {'y': 30}, {'y': 0, ease: Expo.easeOut}, '-=0.89');
+            timeline.fromTo($subtitle, 0.65, {opacity: 0}, {opacity: 1, ease: Quint.easeOut}, '-=0.65');
+            timeline.fromTo($subtitle, 0.9, {y: 30}, {y: 0, ease: Quint.easeOut}, '-=0.65');
+            timeline.fromTo($star, 0.15, {opacity: 0}, {opacity: 1, ease: Quint.easeOut}, '-=0.6');
+            timeline.fromTo($star, 0.55, {rotation: -270}, {rotation: 0, ease: Back.easeOut}, '-=0.5');
+            timeline.fromTo($lines, 0.6, {width: 0}, {width: '42%', opacity: 1, ease: Quint.easeOut}, '-=0.55');
+            timeline.fromTo($hr, 0.6, {width: 0}, {width: '100%', opacity: 1, ease: Quint.easeOut}, '-=0.6');
+            timeline.fromTo($arrows, 0.2, {opacity: 0}, {opacity: 1, ease: Quint.easeOut}, '-=0.27');
+            timeline.fromTo($description, 0.5, {opacity: 0}, {opacity: 1, ease: Quint.easeOut}, '-=0.28');
             timeline.fromTo($description, 0.75, {y: -20}, {y: 0}, '-=0.5');
 
             // ------ B
             timeline.addLabel("animatedIn");
 
             // if (i == 0) {
-            //     timeline.fromTo($headline, 1.08, {y: 0}, {y: 150, ease: pixGS.Linear.easeNone});
-            //     timeline.fromTo($title, 1.08, {y: 0}, {opacity: 0, y: -60, ease: pixGS.Quad.easeIn}, '-=1.08');
+            //     timeline.fromTo($headline, 1.08, {y: 0}, {y: 150, ease: Linear.easeNone});
+            //     timeline.fromTo($title, 1.08, {y: 0}, {opacity: 0, y: -60, ease: Quad.easeIn}, '-=1.08');
             // } else {
-                timeline.fromTo($title, 1.08, {y: 0}, {opacity: 0, y: -60, ease: pixGS.Quad.easeIn});
+                timeline.fromTo($title, 1.08, {y: 0}, {opacity: 0, y: -60, ease: Quad.easeIn});
             // }
 
-            timeline.to($description, 1.08, {y: 60, opacity: 0, ease: pixGS.Quad.easeIn}, '-=1.08');
-            timeline.to($subtitle, 1.08, {opacity: 0, y: -90, ease: pixGS.Quad.easeIn}, '-=1.08');
-            timeline.to($lines, 0.86, {width: 0, opacity: 0, ease: pixGS.Quad.easeIn}, '-=0.94');
-            timeline.to($hr, 0.86, {width: 0, opacity: 0, ease: pixGS.Quad.easeIn}, '-=0.86');
+            timeline.to($description, 1.08, {y: 60, opacity: 0, ease: Quad.easeIn}, '-=1.08');
+            timeline.to($subtitle, 1.08, {opacity: 0, y: -90, ease: Quad.easeIn}, '-=1.08');
+            timeline.to($lines, 0.86, {width: 0, opacity: 0, ease: Quad.easeIn}, '-=0.94');
+            timeline.to($hr, 0.86, {width: 0, opacity: 0, ease: Quad.easeIn}, '-=0.86');
             timeline.to($star, 1, {rotation: 180}, '-=1.08');
             timeline.to($star, 0.11, {opacity: 0}, '-=0.03');
             timeline.to($arrows, 0.14, {opacity: 0}, '-=1.08');
@@ -1191,13 +1194,13 @@ var CoverAnimation = {
 
                 timeline.tweenTo("animatedIn", {
                     onComplete: function () {
-                        if (Modernizr.touch) {
+                        if (Modernizr.touchevents) {
                             $headline.data("animated", true);
                         }
                     }
                 });
 
-                if (!Modernizr.touch) {
+                if (!Modernizr.touchevents) {
                     timeline.tweenTo("animatedOut", {
                         onComplete: function () {
                             $headline.data("animated", true);
@@ -1289,7 +1292,7 @@ var Navigator = {
     isWhite:            true,
     wasWhite:           true,
     initialized:        false,
-    timeline:           new pixGS.TimelineMax({ paused: true }),
+    timeline:           new TimelineMax({ paused: true }),
     nextTop:            0,
     footer:             null,
     footerTop:          0,
@@ -1359,9 +1362,9 @@ var Navigator = {
         this.$selected          = $('<div class="navigator__item  navigator__item--selected"><div class="bullet"></div></div>').appendTo($navigator);
         this.$selectedBullet    = this.$selected.find('.bullet');
 
-        this.timeline.add(pixGS.TweenMax.to(that.$selectedBullet, 0, {}));
+        this.timeline.add(TweenMax.to(that.$selectedBullet, 0, {}));
 
-        this.timeline.add(pixGS.TweenMax.to(that.$selectedBullet, 0.1, {
+        this.timeline.add(TweenMax.to(that.$selectedBullet, 0.1, {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             borderBottomLeftRadius: 50,
@@ -1370,7 +1373,7 @@ var Navigator = {
             'scaleX': 0.6
         }));
 
-        this.timeline.add(pixGS.TweenMax.to(that.$selectedBullet, 0.1, {
+        this.timeline.add(TweenMax.to(that.$selectedBullet, 0.1, {
             borderTopLeftRadius: 50,
             borderTopRightRadius: 50,
             borderBottomLeftRadius: 50,
@@ -1379,7 +1382,7 @@ var Navigator = {
             'scaleX': 1
         }));
 
-        this.timeline.add(pixGS.TweenMax.to(that.$selectedBullet, 0, {
+        this.timeline.add(TweenMax.to(that.$selectedBullet, 0, {
             'scale': 1.2
         }));
 
@@ -1399,14 +1402,14 @@ var Navigator = {
             }
 
             setTimeout(function () {
-                pixGS.TweenMax.fromTo($obj, 1, {opacity: 0, scale: 0.7}, {opacity: 1.25, scale: 1, ease: pixGS.Elastic.easeOut});
+                TweenMax.fromTo($obj, 1, {opacity: 0, scale: 0.7}, {opacity: 1.25, scale: 1, ease: Elastic.easeOut});
             }, stagger);
         });
 
         if($navigator.hasClass('navigator--transparent'))
-            pixGS.TweenMax.to($navigator, 2, {opacity: .2 });
+            TweenMax.to($navigator, 2, {opacity: .2 });
         else
-            pixGS.TweenMax.to($navigator, .3, {opacity: 1 });
+            TweenMax.to($navigator, .3, {opacity: 1 });
     },
 
     update: function () {
@@ -1454,7 +1457,7 @@ var Navigator = {
         // then move it accordingly and update state
         if (this.lastSelected != this.currentSelected) {
             this.lastSelected = this.currentSelected;
-            pixGS.TweenMax.to(this.$selected, 0.3, {top: 24 * that.currentSelected});
+            TweenMax.to(this.$selected, 0.3, {top: 24 * that.currentSelected});
             that.timeline.tweenFromTo(0, 0.3);
 //            that.timeline.play();
         }
@@ -1516,7 +1519,7 @@ function niceScrollInit() {
     var smoothScroll    = $('body').data('smoothscrolling') !== undefined,
         root            = document.documentElement;
 
-    if (smoothScroll && !is_EDGE && !Modernizr.touch && !is_mobile_ie && !is_OSX) {
+    if (smoothScroll && !is_EDGE && !Modernizr.touchevents && !is_mobile_ie && !is_OSX) {
 
         var $window = $(window);		// Window object
 
@@ -1539,12 +1542,12 @@ function niceScrollInit() {
 
                 event.preventDefault();
 
-                pixGS.TweenMax.to($window, .6, {
+                TweenMax.to($window, .6, {
                     scrollTo: {
                         y:          scrollTo,
                         autoKill:   true
                     },
-                    ease:           pixGS.Power1.easeOut,	// For more easing functions see http://api.greensock.com/js/com/greensock/easing/package-detail.html
+                    ease:           Power1.easeOut,	// For more easing functions see http://api.greensock.com/js/com/greensock/easing/package-detail.html
                     autoKill:       true,
                     overwrite:      5
                 });
@@ -1565,7 +1568,7 @@ function smoothScrollTo(y, speed) {
     var distance = Math.abs(latestKnownScrollY - y),
         time     = speed * distance / 2000;
 
-    pixGS.TweenMax.to($(window), time, {scrollTo: {y: y, autoKill: true, ease: pixGS.Quint.easeInOut}});
+    TweenMax.to($(window), time, {scrollTo: {y: y, autoKill: true, ease: Quint.easeInOut}});
 }
 
 
@@ -1676,7 +1679,10 @@ function init() {
     // $('.site-footer.border-waves').prevAll('article__header').first().find('.article__parallax').addClass('border-waves-top border-waves-top--dark');
 
     $('.js-pixslider').not('.article__parallax .js-pixslider').each(function(i, slider) {
-        sliderInit($(slider));
+        var $slider = $(slider);
+        $slider.imagesLoaded(function() {
+            sliderInit($(slider));
+        });
     });
 
     $('.navigation--main').on('DOMMouseScroll mousewheel', function(ev) {
@@ -1811,7 +1817,7 @@ $(document).ready(function(){
 
 /* ====== ON WINDOW LOAD ====== */
 
-$(window).load(function(){
+$(window).load(function() {
 
 	if (globalDebug) {console.group("OnWindowLoad");}
 
@@ -1878,6 +1884,8 @@ $(window).load(function(){
     }, 60);
 
     loop();
+
+    $html.addClass('is--loaded');
 });
 
 
@@ -1901,7 +1909,7 @@ function onResize(e) {
 
     royalSliderInit($('.js-pixslider').not('.article__parallax .js-pixslider'));
 
-    if ( ! Modernizr.touch ) {
+    if ( ! Modernizr.touchevents ) {
         requestAnimationFrame(refreshStuff);
     } else {
         if (orientationchange) {
@@ -1933,7 +1941,7 @@ function updateStuff() {
     DownArrow.update();
     CoverAnimation.update();
 
-    if (!Modernizr.touch && windowWidth >= 900) {
+    if (!Modernizr.touchevents && windowWidth >= 900) {
         Navigator.update();
     }
 

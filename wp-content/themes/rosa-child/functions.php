@@ -1,6 +1,4 @@
 <?php
-  update_option('siteurl','localhost:8888/mcs');
-  update_option('home','localhost:8888/mcs');
 
 /*
  * ===== Theme Translation =====

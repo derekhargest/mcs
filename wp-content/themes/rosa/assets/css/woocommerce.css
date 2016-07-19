@@ -246,7 +246,7 @@
 
 .woocommerce .woocommerce-message, .woocommerce .woocommerce-info, .woocommerce .woocommerce-error, .woocommerce-page .woocommerce-message, .woocommerce-page .woocommerce-info, .woocommerce-page .woocommerce-error {
   margin-top: 24px !important;
-  padding-left: 1em !important;
+  padding: 1em !important;
   border: none;
   border: 1px solid #d8d8d8;
   background: none;
@@ -256,6 +256,19 @@
     content: none; }
   .woocommerce .woocommerce-message .button:after, .woocommerce .woocommerce-info .button:after, .woocommerce .woocommerce-error .button:after, .woocommerce-page .woocommerce-message .button:after, .woocommerce-page .woocommerce-info .button:after, .woocommerce-page .woocommerce-error .button:after {
     content: none; }
+  @media screen and (max-width: 400px) {
+    .woocommerce .woocommerce-message, .woocommerce .woocommerce-info, .woocommerce .woocommerce-error, .woocommerce-page .woocommerce-message, .woocommerce-page .woocommerce-info, .woocommerce-page .woocommerce-error {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+              flex-direction: column; }
+      .woocommerce .woocommerce-message .button, .woocommerce .woocommerce-info .button, .woocommerce .woocommerce-error .button, .woocommerce-page .woocommerce-message .button, .woocommerce-page .woocommerce-info .button, .woocommerce-page .woocommerce-error .button {
+        -webkit-order: 1;
+            -ms-flex-order: 1;
+                order: 1;
+        text-align: center; } }
 
 .woocommerce .woocommerce-error, .woocommerce-page .woocommerce-error {
   border: 1px solid red; }
@@ -791,5 +804,22 @@ td.actions {
 #add_payment_method #payment div.payment_box:before,
 .woocommerce-checkout #payment div.payment_box:before {
   top: -14px; }
+
+@media screen and (max-width: 400px) {
+  #add_payment_method #payment .payment_method_paypal .about_paypal,
+  .woocommerce-checkout #payment .payment_method_paypal .about_paypal {
+    float: none; } }
+
+.woocommerce-account .woocommerce-MyAccount-navigation {
+  padding: 24px;
+  float: none;
+  width: 100%; }
+  .woocommerce-account .woocommerce-MyAccount-navigation li:not(.is-active) a {
+    color: #262526;
+    border-color: transparent; }
+
+.woocommerce-account .woocommerce-MyAccount-content {
+  float: none;
+  width: 100%; }
 
 /*# sourceMappingURL=woocommerce.css.map */

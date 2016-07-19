@@ -831,7 +831,7 @@ ul, ol, dd {
 /*------------------------------------*    $MAIN
 \*------------------------------------*/
 html {
-  font: 1em/1.5 "Cabin", Arial, Helvetica, sans-serif;
+  font: 1em / 1.5 "Cabin", Arial, Helvetica, sans-serif;
   min-height: 100%; }
 
 /*------------------------------------*    $HEADINGS
@@ -3379,7 +3379,7 @@ html.flexbox {
 
 .icon {
   display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
+  font: normal normal normal 14px / 1 FontAwesome;
   font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
