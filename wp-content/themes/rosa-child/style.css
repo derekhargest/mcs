@@ -17,3 +17,23 @@ Tags: black, orange, light, one-column, two-columns, right-sidebar, flexible-wid
 If you wish however, you can copy the whole style.css file from the parent here and hack at it - see functions.php for more details.
 In that case please remember that you still need to retain the header above (replace the header of the parent style.css with the one above),
 specifically the 'Template: rosa' line. */
+
+.mc4wp-form-fields label{
+  text-indent: -99999px;
+}
+.signup_input{
+  border-radius: 0 !important;
+  width: 80% !important;
+  float: left;
+}
+
+.signup_btn{
+  border-radius: 0;
+  width: 20%;
+  background: #54c2ba;
+  border: 0;
+  float: left;
+  text-transform: uppercase;
+  line-height: 2.3em;
+  font-weight: 700;
+}

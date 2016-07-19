@@ -37,4 +37,6 @@ $args = array(
 
 register_sidebar( $args );
 
+add_action( 'wp_enqueue_style', 'rosa-child-style' );
+
 add_action( 'wp_enqueue_scripts', 'rosa_child_enqueue_styles' );
